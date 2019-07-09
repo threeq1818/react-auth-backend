@@ -12,10 +12,10 @@ const validateLoginInput = require('../validation/login');
 const User = require('../models/User');
 
 router.post('/register', function (req, res) {
-    const { error, isValid } = validateRegisterInput(req.body);
+    const { errors, isValid } = validateRegisterInput(req.body);
 
     if (!isValid) {
-        retrun res.status(400).json(errors);
+        return res.status(400).json(errors);
     }
     User.findOne({
         email: req.body.email
@@ -31,7 +31,7 @@ router.post('/register', function (req, res) {
                 r: 'pg',
                 d: 'mm'
             });
-            const userUser = newe User({
+            const newUser = new User({
                 name: req.body.name,
                 email: req.body.email,
                 password: req.body.password,
