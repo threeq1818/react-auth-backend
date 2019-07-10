@@ -17,6 +17,7 @@ router.post('/register', function (req, res) {
     if (!isValid) {
         return res.status(400).json(errors);
     }
+
     User.findOne({
         email: req.body.email
     }).then(user => {
@@ -85,7 +86,7 @@ router.post('/login', (req, res) => {
                         jwt.sign(payload, 'secret', {
                             expiresIn: 3600
                         }, (err, token) => {
-                            if (err) console.error('There is som error in token', err);
+                            if (err) console.error('There is some error in token', err);
                             else {
                                 res.json({
                                     success: true,

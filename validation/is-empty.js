@@ -8,4 +8,4 @@ const isEmpty = (value) => {
         (typeof value === 'string' && value.trim().length === 0)
     );
 }
-module.exprots = isEmpty;
+module.exports = isEmpty;
