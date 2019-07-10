@@ -29,6 +29,12 @@ router.post('/', function (req, res) {
 router.delete('/:id', function (req, res) {
     const id = req.params.id;
 
-}
+    Character.deleteOne({ _id: id }, function (err) {
+        if (err)
+            res.json({ error: "errors" });
+        else
+            res.json({ success: "ok", id: id });
+    });
+});
 
 module.exports = router;
