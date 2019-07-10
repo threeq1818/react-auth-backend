@@ -1,4 +1,4 @@
-// Characters.js
+// Character.js
 
 const mongoose = require('mongoose');
 
