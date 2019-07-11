@@ -8,7 +8,38 @@ const passport = require('passport');
 const validateCharacterInput = require('../validation/character');
 const Character = require('../models/Character');
 
+router.get('/:id', function (req, res) {
+    if (!req.user)
+        return res.status(400).json({ message: "not auth" });
+
+    const id = req.params.id;
+
+    Character.findById(id)
+        .then(character => {
+            res.json(character);
+        })
+        .catch(err => {
+            res.status(400).json(err);
+        })
+});
+
+router.get('/', function (req, res) {
+    if (!req.user)
+        return res.status(400).json({ message: "not auth" });
+
+    Character.find({})
+        .then(characters => {
+            res.json(characters);
+        })
+        .catch(err => {
+            res.status(400).json(err);
+        })
+})
+
 router.post('/', function (req, res) {
+    if (!req.user)
+        return res.status(400).json({ message: "not auth" });
+
     const { errors, isValid } = validateCharacterInput(req.body);
 
     if (!isValid) {
@@ -27,14 +58,18 @@ router.post('/', function (req, res) {
 });
 
 router.delete('/:id', function (req, res) {
+    if (!req.user)
+        return res.status(400).json({ message: "not auth" });
+
     const id = req.params.id;
 
-    Character.deleteOne({ _id: id }, function (err) {
-        if (err)
-            res.json({ error: "errors" });
-        else
-            res.json({ success: "ok", id: id });
-    });
+    Character.deleteOne({ _id: id })
+        .then(() => {
+            res.json({ _id: id });
+        })
+        .catch(errors => {
+            res.status(400).json(errors);
+        });
 });
 
 module.exports = router;
