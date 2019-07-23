@@ -43,7 +43,7 @@ module.exports = function validateRegisterInput(data) {
     }
 
     if (Validator.isEmpty(data.password_confirm)) {
-        errors.password_confirm = 'Password is required';
+        errors.password_confirm = 'Confirm Password is required';
     }
 
     return {

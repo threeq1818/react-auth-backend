@@ -2,18 +2,16 @@
 
 const express = require('express');
 const router = express.Router();
-const jwt = require('jsonwebtoken');
-const passport = require('passport');
 
 const validateCharacterInput = require('../validation/character');
 const Character = require('../models/Character');
 
-router.get('/:id', function (req, res) {
+router.get('/id/:id', function (req, res) {
+    console.log("ididididid");
     if (!req.user)
-        return res.status(400).json({ message: "not auth" });
+        return res.status(401).json({ message: "not auth" });
 
     const id = req.params.id;
-
     Character.findById(id)
         .then(character => {
             res.json(character);
@@ -23,10 +21,9 @@ router.get('/:id', function (req, res) {
         })
 });
 
-router.get('/', function (req, res) {
+router.get('/all', function (req, res) {
     if (!req.user)
-        return res.status(400).json({ message: "not auth" });
-
+        return res.status(401).json({ message: "not auth" });
     Character.find({})
         .then(characters => {
             res.json(characters);
@@ -38,7 +35,7 @@ router.get('/', function (req, res) {
 
 router.post('/', function (req, res) {
     if (!req.user)
-        return res.status(400).json({ message: "not auth" });
+        return res.status(401).json({ message: "not auth" });
 
     const { errors, isValid } = validateCharacterInput(req.body);
 
@@ -59,7 +56,7 @@ router.post('/', function (req, res) {
 
 router.delete('/:id', function (req, res) {
     if (!req.user)
-        return res.status(400).json({ message: "not auth" });
+        return res.status(401).json({ message: "not auth" });
 
     const id = req.params.id;
 

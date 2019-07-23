@@ -7,6 +7,7 @@ const config = require('./db');
 
 const users = require('./routes/user');
 const characters = require('./routes/character');
+const authMiddleware = require('./middleware/auth');
 
 mongoose.connect(config.DB, { useNewUrlParser: true })
     .then(
@@ -21,6 +22,7 @@ require('./passport')(passport);
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
+app.use(authMiddleware);
 app.use('/api/users', users);
 app.use('/api/characters', characters);
 
