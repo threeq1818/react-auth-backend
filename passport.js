@@ -12,7 +12,7 @@ opts.secretOrKey = 'secret';
 module.exports = passport => {
     // console.log('init-passport');
     passport.use(new JWTStrategy(opts, (jwt_payload, done) => {
-        console.log(jwt_payload);
+        // console.log(jwt_payload);
         User.findById(jwt_payload.id)
             .then(user => {
                 // console.log(user);

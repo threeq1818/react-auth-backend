@@ -7,7 +7,6 @@ const validateCharacterInput = require('../validation/character');
 const Character = require('../models/Character');
 
 router.get('/id/:id', function (req, res) {
-    console.log("ididididid");
     if (!req.user)
         return res.status(401).json({ message: "not auth" });
 
